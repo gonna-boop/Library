@@ -1,35 +1,48 @@
-const hobbit = new Book("The Hobbit", "J.R.R. Tolkein", 304);
+let i = 1;
+const div = document.createElement('div');
+// function Book(title, author, pages) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+// //   this.read = read;
+// }
+// const hobbit = new Book('The Hobbit', 'J.R.R. Tolkein', 304);
 
-let myLibrary = [hobbit];
-// first step: figure out how to display items within this array
-// as a card on the page
+let myLibrary = [];
 
-function Book(title, author, pages) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-//   this.read = read;
+// function addBookToLibrary() {
+// }
+
+function createBookCard(Book) {
+  const bookCard = document.createElement('div');
+  bookCard.className = 'col-md';
 }
 
-function addBookToLibrary() {
-//   const addBook = (e) => {
-//     e.preventDefault(); // stops form from submitting
-//     let book = {
-//         title: document.getElementById('title').value,
-//         author: document.getElementById('author').value,
-//         pages: document.getElementById('pages').value,
-//     }
-//   }
-}
+const createBook = (e) => {
+  e.preventDefault();
+  const Book = {
+    title: document.getElementById('Title').value,
+    author: document.getElementById('Author').value,
+    pages: document.getElementById('numPages').value,
+  };
+  myLibrary.push(Book);
+  document.forms[0].reset();
 
-// at this point here is what needs to be done
-// the submit button on the form needs to take the
-// inputs and create a book object with them
-// that object then needs to be displayed as a card
-// const form = document.querySelector('form');
-// form.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   const fd = new FormData(form);
-//   const obj = Object.fromEntries(fd);
-//   console.log(obj);
-// });
+  console.warn('added', { myLibrary });
+  //   console.log(Book);
+
+  while (i < myLibrary.length) {
+    console.log(i);
+    createBookCard();
+    i++;
+  }
+};
+
+/* <div class="col-md">3</div> */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const submit = document.getElementById('submit-btn');
+  if (submit) {
+    submit.addEventListener('click', createBook);
+  }
+});
