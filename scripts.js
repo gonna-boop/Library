@@ -1,48 +1,36 @@
-let i = 1;
-const div = document.createElement('div');
-// function Book(title, author, pages) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-// //   this.read = read;
-// }
-// const hobbit = new Book('The Hobbit', 'J.R.R. Tolkein', 304);
+let myLibrary = []; // this is the array {of objects} that we will be displaying within the webpage
+let i = 0;
 
-let myLibrary = [];
-
-// function addBookToLibrary() {
-// }
-
-function createBookCard(Book) {
-  const bookCard = document.createElement('div');
-  bookCard.className = 'col-md';
-}
-
-const createBook = (e) => {
-  e.preventDefault();
+// the below function does a few things.  First, it constructs a book object
+// based on the information a user enters into the Modal/Form.
+// From here, that information is pushed to the myLibrary Array.
+// The function is triggered when a user hits the "submit" button.
+const createBook = () => {
   const Book = {
     title: document.getElementById('Title').value,
     author: document.getElementById('Author').value,
     pages: document.getElementById('numPages').value,
+    read: document.getElementById('flexCheckDefault').checked,
   };
   myLibrary.push(Book);
   document.forms[0].reset();
-
   console.warn('added', { myLibrary });
-  //   console.log(Book);
-
-  while (i < myLibrary.length) {
-    console.log(i);
-    createBookCard();
-    i++;
-  }
+//   while (i < myLibrary.length) {
+//     console.log(i);
+//     // createBookCard();
+//     i++;
+//   }
 };
 
-/* <div class="col-md">3</div> */
-
+// the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
+// button is clicked on the modal, the createBook() function will run
 document.addEventListener('DOMContentLoaded', () => {
   const submit = document.getElementById('submit-btn');
   if (submit) {
     submit.addEventListener('click', createBook);
   }
 });
+
+
+// function createBookCard(Book) {
+// }
