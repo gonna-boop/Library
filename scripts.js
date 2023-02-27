@@ -1,6 +1,27 @@
 let myLibrary = []; // this is the array {of objects} that we will be displaying within the webpage
 let i = 0;
 
+function createBookCard(Book) {
+  const newDiv = document.createElement('div');
+  let bookTemplate = '<div class="col-md">'
++ '<div class="card bg-secondary text-light">'
+  + '<div class="card-body text-center">'
+    + '<div class="mb-2">'
+      + '<i class="bi bi-book"></i></div>'
+    + '<h3 class="card-title">'
+        + `${Book.title}`
+            + '</h3>'
+        + '<p class="card-text">'
+        + `${Book.author}`
+            + '</p>'
+        + '<p class="card-text">'
+        + `${Book.pages}` + " pages"
+        + '</p>'
+        + '</div></div></div>';
+  newDiv.innerHTML += bookTemplate;
+  document.getElementById('bookGrid').appendChild(newDiv);
+}
+
 // the below function does a few things.  First, it constructs a book object
 // based on the information a user enters into the Modal/Form.
 // From here, that information is pushed to the myLibrary Array.
@@ -15,11 +36,11 @@ const createBook = () => {
   myLibrary.push(Book);
   document.forms[0].reset();
   console.warn('added', { myLibrary });
-//   while (i < myLibrary.length) {
-//     console.log(i);
-//     // createBookCard();
-//     i++;
-//   }
+  while (i < myLibrary.length) {
+    createBookCard(myLibrary[i]);
+    i++;
+    console.log(i);
+  }
 };
 
 // the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
@@ -30,7 +51,3 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.addEventListener('click', createBook);
   }
 });
-
-
-// function createBookCard(Book) {
-// }
