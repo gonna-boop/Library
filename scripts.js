@@ -17,26 +17,25 @@ function createBookCard(Book) {
         + `${Book.author}`
             + '</p>'
         + '<p class="card-text">'
-        + `${Book.pages}` + " pages"
+        + `${Book.pages}` 
+        + ' pages'
         + '</p>'
-        + '<button type="button" class="btn btn-outline-light" onClick="removeBook()" id="remove-btn">Remove</button>'
+        + '<button type="button" class="btn btn-outline-light" data-remove-id='
+        + `${Book.id = id}`
+        + ' onClick="removeBook()" id="remove-btn">Remove</button>'
         + '</div></div></div>';
+  newDiv.dataset.id = id;
+  id++;
 
   newDiv.innerHTML += bookTemplate;
   document.getElementById('bookGrid').appendChild(newDiv);
-}
-let objIdMap = new WeakMap();
-let objectCount = 0;
-function objectID(Book) {
-  if (!objIdMap.has(Book)) objIdMap.set(Book, objectCount++);
-  return objIdMap.get(Book);
 }
 // the below function does a few things.  First, it constructs a book object
 // based on the information a user enters into the Modal/Form.
 // From here, that information is pushed to the myLibrary Array.
 // The function is triggered when a user hits the "submit" button.
 const createBook = () => {
-  const Book = {
+  Book = {
     title: document.getElementById('Title').value,
     author: document.getElementById('Author').value,
     pages: document.getElementById('numPages').value,
@@ -51,8 +50,13 @@ const createBook = () => {
   return Book;
 };
 
-function removeBook(CardID) {
-  console.log('test');
+function removeBook(removeID) {
+  // record id of the remove button that was used
+  let buttonClicked = document.getElementById('remove-btn');
+  removeID = buttonClicked.dataset;
+  console.log(removeID);
+  // match the button id with the id of the card
+  // remove associated ID
 }
 
 // the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
@@ -60,6 +64,7 @@ function removeBook(CardID) {
 document.addEventListener('DOMContentLoaded', () => {
   const submit = document.getElementById('submit-btn');
   if (submit) {
-    submit.addEventListener('click', createBook, objectID);
+    submit.addEventListener('click', createBook);
   }
 });
+
