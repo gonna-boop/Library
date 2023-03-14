@@ -1,12 +1,12 @@
 let myLibrary = []; // this is the array {of objects} that we will be displaying within the webpage
-let i = 0;
-let Book = [];
-let id = 0;
+let i = 0; // for creating new book cards
+let Book = []; // myLibrary contains Books
+let id = 0; // for assigning each card a unique data ID
 
 function createBookCard(Book) {
   const newDiv = document.createElement('div');
-  let bookTemplate = '<div class="col-md">'
-+ '<div class="card bg-secondary text-light">'
+  const bookTemplate = '<div class="col-md">'
++ '<div class="card bg-primary text-light">'
   + '<div class="card-body text-center">'
     + '<div class="mb-2">'
       + '<i class="bi bi-book"></i></div>'
@@ -22,13 +22,15 @@ function createBookCard(Book) {
         + '</p>'
         + '<button type="button" class="btn btn-outline-light" data-remove-id='
         + `${Book.id = id}`
-        + ' onClick="removeBook()" id="remove-btn">Remove</button>'
+        + ' onClick="removeBook('
+        + `${id}`
+        + ')" id="remove-btn">Remove</button>'
         + '</div></div></div>';
   newDiv.dataset.id = id;
   id++;
-
   newDiv.innerHTML += bookTemplate;
   document.getElementById('bookGrid').appendChild(newDiv);
+  return Book;
 }
 // the below function does a few things.  First, it constructs a book object
 // based on the information a user enters into the Modal/Form.
@@ -50,11 +52,13 @@ const createBook = () => {
   return Book;
 };
 
-function removeBook(removeID) {
+function removeBook(id) {
   // record id of the remove button that was used
-  let buttonClicked = document.getElementById('remove-btn');
-  removeID = buttonClicked.dataset;
-  console.log(removeID);
+  let selected = document.querySelector(`[data-remove-id="${id}"]`);
+  // let selected = document.querySelector(`[data-remove-id="${id}"]`);
+  let selectedId = selected.dataset.removeId;
+  let newDiv = document.querySelector(`[data-id="${selectedId}"]`);
+  newDiv.remove();
   // match the button id with the id of the card
   // remove associated ID
 }
@@ -67,4 +71,3 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.addEventListener('click', createBook);
   }
 });
-
