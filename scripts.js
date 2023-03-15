@@ -1,11 +1,15 @@
-let myLibrary = []; // this is the array {of objects} that we will be displaying within the webpage
+// myLibrary is the array {of objects} that we will be displaying within the webpage
+const myLibrary = [];
 let i = 0; // for creating new book cards
 let Book = []; // myLibrary contains Books
 let id = 0; // for assigning each card a unique data ID
+let rowNum = 0;
 
 function createBookCard(Book) {
-  const newDiv = document.createElement('div');
-  const bookTemplate = '<div class="col-md">'
+  if (rowNum < 3) {
+    const newDiv = document.createElement('div');
+    newDiv.className = 'col-sm';
+    const bookTemplate = '<div class="col-sm">'
 + '<div class="card bg-primary text-light">'
   + '<div class="card-body text-center">'
     + '<div class="mb-2">'
@@ -17,7 +21,7 @@ function createBookCard(Book) {
         + `${Book.author}`
             + '</p>'
         + '<p class="card-text">'
-        + `${Book.pages}` 
+        + `${Book.pages}`
         + ' pages'
         + '</p>'
         + '<button type="button" class="btn btn-outline-light" data-remove-id='
@@ -26,10 +30,45 @@ function createBookCard(Book) {
         + `${id}`
         + ')" id="remove-btn">Remove</button>'
         + '</div></div></div>';
-  newDiv.dataset.id = id;
-  id++;
-  newDiv.innerHTML += bookTemplate;
-  document.getElementById('bookGrid').appendChild(newDiv);
+    newDiv.dataset.id = id;
+    id++;
+    newDiv.dataset.rowNum = rowNum;
+    rowNum++;
+    newDiv.innerHTML += bookTemplate;
+    document.getElementById('bookGrid').appendChild(newDiv);
+  } else {
+    rowNum = 0;
+    console.log(rowNum);
+    const newDiv = document.createElement('div');
+    const bookTemplate = '<div class="col-sm">'
++ '<div class="card bg-primary text-light">'
+  + '<div class="card-body text-center">'
+    + '<div class="mb-2">'
+      + '<i class="bi bi-book"></i></div>'
+    + '<h3 class="card-title">'
+        + `${Book.title}`
+            + '</h3>'
+        + '<p class="card-text">'
+        + `${Book.author}`
+            + '</p>'
+        + '<p class="card-text">'
+        + `${Book.pages}`
+        + ' pages'
+        + '</p>'
+        + '<button type="button" class="btn btn-outline-light" data-remove-id='
+        + `${Book.id = id}`
+        + ' onClick="removeBook('
+        + `${id}`
+        + ')" id="remove-btn">Remove</button>'
+        + '</div></div></div>';
+    newDiv.dataset.id = id;
+    id++;
+    newDiv.dataset.rowNum = rowNum;
+    newDiv.innerHTML += bookTemplate;
+    document.getElementById('bookGrid').appendChild(newDiv);
+    return rowNum;
+  }
+
   return Book;
 }
 // the below function does a few things.  First, it constructs a book object
@@ -54,13 +93,16 @@ const createBook = () => {
 
 function removeBook(id) {
   // record id of the remove button that was used
-  let selected = document.querySelector(`[data-remove-id="${id}"]`);
+  const selected = document.querySelector(`[data-remove-id="${id}"]`);
   // let selected = document.querySelector(`[data-remove-id="${id}"]`);
-  let selectedId = selected.dataset.removeId;
-  let newDiv = document.querySelector(`[data-id="${selectedId}"]`);
+  const selectedId = selected.dataset.removeId;
+  const newDiv = document.querySelector(`[data-id="${selectedId}"]`);
   newDiv.remove();
   // match the button id with the id of the card
   // remove associated ID
+
+  // add remove confirmation
+  // add progress field
 }
 
 // the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
