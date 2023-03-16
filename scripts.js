@@ -12,7 +12,7 @@ function createBookCard(Book) {
   } else if (rowNum >= 0) {
     const newDiv = document.createElement('div');
     newDiv.className = 'grid col-sm mb-4';
-    const bookTemplate = '<div class="card bg-primary text-light">'
+    const bookTemplate = '<div class="card h-100 bg-primary text-light align-items-center">'
 + '<div class="card-body text-center">'
     + '<div class="mb-2">'
       + '<i class="bi bi-book"></i></div>'
@@ -26,6 +26,15 @@ function createBookCard(Book) {
         + `${Book.pages}`
         + ' pages'
         + '</p>'
+        + '<div class="flex form-check mb-3">'
+        + '<input class="form-check-input" data-check-id="'
+        + `${Book.id = id}`
+        + '" type="checkbox" value="" onClick="readBook('
+        + `${id}`
+        + ')" id="defaultCheck1">'
+        + '<label class="form-check-label" for="defaultCheck1">Read?'
+        + '</label>'
+      + '</div>'
         + '<button type="button" class="btn btn-outline-light" data-remove-id='
         + `${Book.id = id}`
         + ' onClick="removeBook('
@@ -56,6 +65,16 @@ const createBook = () => {
     pages: document.getElementById('numPages').value,
     read: document.getElementById('flexCheckDefault').checked,
   };
+  if (Book.title === '') {
+    alert('Book title is empty.');
+    return false;
+  } if (Book.author === '') {
+    alert('Author is empty.');
+    return false;
+  } if (Book.pages === '') {
+    alert('Pages field is empty.');
+    return false;
+  }
   myLibrary.push(Book);
   document.forms[0].reset();
   while (i < myLibrary.length) {
@@ -79,6 +98,40 @@ function removeBook(id) {
   // add progress field
 }
 
+function readBook(id) {
+  const selected = document.querySelector(`[data-check-id="${id}"]`);
+  console.log(selected);
+  const selectedId = selected.dataset.checkId;
+  const newDiv = document.querySelector(`[data-id="${selectedId}"]`);
+  newDiv.className = 'grid col-sm mb-4';
+  const bookTemplate = '<div class="card h-100 bg-secondary text-light align-items-center">'
++ '<div class="card-body text-center">'
+    + '<div class="mb-2">'
+      + '<i class="bi bi-book"></i></div>'
+    + '<h3 class="card-title">'
+        + `${Book.title}`
+            + '</h3>'
+        + '<p class="card-text">'
+        + `${Book.author}`
+            + '</p>'
+        + '<p class="card-text">'
+        + `${Book.pages}`
+        + ' pages'
+        + '</p>'
+        + '<div class="flex form-check mb-3">'
+        + '<input class="form-check-input" type="checkbox" value="" onClick="readBook()" id="defaultCheck1">'
+        + '<label class="form-check-label" for="defaultCheck1">Read?'
+        + '</label>'
+      + '</div>'
+        + '<button type="button" class="btn btn-outline-light" data-remove-id='
+        + `${Book.id = id}`
+        + ' onClick="removeBook('
+        + `${id}`
+        + ')" id="remove-btn">Remove</button>'
+        + '</div></div></div>';
+    newDiv.innerHTML = bookTemplate;
+    document.getElementById('bookGrid').appendChild(newDiv);
+}
 // the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
 // button is clicked on the modal, the createBook() function will run
 document.addEventListener('DOMContentLoaded', () => {
