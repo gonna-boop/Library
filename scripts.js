@@ -6,12 +6,14 @@ let id = 0; // for assigning each card a unique data ID
 let rowNum = 0;
 
 function createBookCard(Book) {
-  if (rowNum < 3) {
+  if (rowNum === 100) {
+    console.log('create row AND first card');
+    rowNum++;
+  } else if (rowNum >= 0) {
     const newDiv = document.createElement('div');
-    newDiv.className = 'col-sm';
-    const bookTemplate = '<div class="col-sm">'
-+ '<div class="card bg-primary text-light">'
-  + '<div class="card-body text-center">'
+    newDiv.className = 'grid col-sm mb-4';
+    const bookTemplate = '<div class="card bg-primary text-light">'
++ '<div class="card-body text-center">'
     + '<div class="mb-2">'
       + '<i class="bi bi-book"></i></div>'
     + '<h3 class="card-title">'
@@ -36,37 +38,9 @@ function createBookCard(Book) {
     rowNum++;
     newDiv.innerHTML += bookTemplate;
     document.getElementById('bookGrid').appendChild(newDiv);
-  } else {
+  } else if (rowNum <= 2) {
+    console.log('rowNum reset after card added');
     rowNum = 0;
-    console.log(rowNum);
-    const newDiv = document.createElement('div');
-    const bookTemplate = '<div class="col-sm">'
-+ '<div class="card bg-primary text-light">'
-  + '<div class="card-body text-center">'
-    + '<div class="mb-2">'
-      + '<i class="bi bi-book"></i></div>'
-    + '<h3 class="card-title">'
-        + `${Book.title}`
-            + '</h3>'
-        + '<p class="card-text">'
-        + `${Book.author}`
-            + '</p>'
-        + '<p class="card-text">'
-        + `${Book.pages}`
-        + ' pages'
-        + '</p>'
-        + '<button type="button" class="btn btn-outline-light" data-remove-id='
-        + `${Book.id = id}`
-        + ' onClick="removeBook('
-        + `${id}`
-        + ')" id="remove-btn">Remove</button>'
-        + '</div></div></div>';
-    newDiv.dataset.id = id;
-    id++;
-    newDiv.dataset.rowNum = rowNum;
-    newDiv.innerHTML += bookTemplate;
-    document.getElementById('bookGrid').appendChild(newDiv);
-    return rowNum;
   }
 
   return Book;
