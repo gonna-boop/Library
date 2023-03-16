@@ -22,7 +22,7 @@
 
     <!-- Under Header -->
     <section class="-5">
-        <div class="container">
+        <div class="container" >
             <!-- Add Book Button -->
             <div class="col text-center p-3">               
                 <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -36,15 +36,15 @@
                         <div class="modal-body">
                             <form>
                               <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Title" placeholder="The Hobbit">
+                                <input type="text" class="form-control" id="Title" required/>
                                 <label for="Title">Title</label>
                               </div>
                               <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Author" placeholder="J. R. R. Tolkien">
+                                <input type="text" class="form-control" id="Author" required/>
                                 <label for="Author">Author</label>
                               </div>
                               <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="numPages" placeholder="J. R. R. Tolkien">
+                                <input type="number" class="form-control" id="numPages" required/>
                                 <label for="numPages"># of Pages</label>
                               </div>
                               <div class="form-check mb-3">
@@ -63,9 +63,8 @@
                     </div>
             </div>
                   <!-- Book Cards -->
-            <div class="container">
-            <div class="row text-center" id="bookGrid">
-              </div>  
+            <div class="grid gap-0" id="bookGridContainer">
+            <div class="row text-center w-50 mx-auto" id="bookGrid"></div>  
             </div> 
         </div>
     </section>
