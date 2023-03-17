@@ -4,6 +4,7 @@ let i = 0; // for creating new book cards
 let Book = []; // myLibrary contains Books
 let id = 0; // for assigning each card a unique data ID
 let rowNum = 0;
+let colorNum = 0;
 
 function createBookCard(Book) {
   if (rowNum === 100) {
@@ -12,7 +13,7 @@ function createBookCard(Book) {
   } else if (rowNum >= 0) {
     const newDiv = document.createElement('div');
     newDiv.className = 'grid col-sm mb-4';
-    const bookTemplate = '<div class="card h-100 bg-primary text-light align-items-center"' 
+    const bookTemplate = '<div class="card h-100 bg-primary text-light align-items-center"'
     + 'data-color-id='
     + `${Book.id = id}`
     + '>'
@@ -32,11 +33,11 @@ function createBookCard(Book) {
         + '<div class="flex form-check mb-3">'
         + '<input class="form-check-input" data-check-id="'
         + `${Book.id = id}`
-        + '" type="checkbox" value="" onClick="readBook('
+        + '" type="checkbox" onClick="readBook('
         + `${id}`
         + ')" id="defaultCheck1">'
-        + '<label class="form-check-label" for="defaultCheck1">Read?'
-        + '</label>'
+        + '<p class="text" for="defaultCheck1">Read?'
+        + '</p>'
       + '</div>'
         + '<button type="button" class="btn btn-outline-light" data-remove-id='
         + `${Book.id = id}`
@@ -102,15 +103,19 @@ function removeBook(id) {
 }
 
 function readBook(id) {
-  const selected = document.querySelector(`[data-color-id="${id}"]`);
-  selected.classList.remove('bg-primary');
-  selected.classList.add('bg-secondary');
-  console.log(selected);
-  // const selectedId = selected.dataset.checkId;
-  // console.log(selectedId);
-  // const newDiv = document.querySelector(`[data-id="${selectedId}"]`);
-  // console.log(newDiv);
-  // document.getElementById('bookGrid').appendChild(newDiv);
+  if (colorNum === 0) {
+    const selected = document.querySelector(`[data-color-id="${id}"]`);
+    selected.classList.remove('bg-primary');
+    selected.classList.add('bg-secondary');
+    colorNum = 1;
+    return colorNum;
+  } if (colorNum === 1) {
+    const selected = document.querySelector(`[data-color-id="${id}"]`);
+    selected.classList.remove('bg-secondary');
+    selected.classList.add('bg-primary');
+    colorNum = 0;
+    return colorNum;
+  }
 }
 // the code below "kicks off" the Javascript, so to speak.  When the "Add Book"
 // button is clicked on the modal, the createBook() function will run
