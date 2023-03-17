@@ -55,7 +55,6 @@ function createBookCard(Book) {
     newDiv.innerHTML += bookTemplate;
     document.getElementById('bookGrid').appendChild(newDiv);
   }
-
   return Book;
 }
 // the below function does a few things.  First, it constructs a book object
@@ -63,13 +62,12 @@ function createBookCard(Book) {
 // From here, that information is pushed to the myLibrary Array.
 // The function is triggered when a user hits the "submit" button.
 // This function will then call the createBookCard() function
-// passing it a book
+// passing it a Book
 const createBook = () => {
   Book = {
     title: document.getElementById('Title').value,
     author: document.getElementById('Author').value,
     pages: document.getElementById('numPages').value,
-    // read: document.getElementById('flexCheckDefault').checked,
   };
   if (Book.title === '') {
     alert('Book title is empty.');
