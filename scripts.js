@@ -6,11 +6,14 @@ let id = 0; // for assigning each card a unique data ID
 let rowNum = 0;
 let colorNum = 0;
 
+
+// The below function is called by the createBook() function
+// it takes the information from the modal and uses it to create a book card
+// the cards are aligned, at max, 4 to a row, and can continue indefinitely
+// the cards are also assigned unique data IDs for the removeBook() and
+// createBook() functions to operate using
 function createBookCard(Book) {
-  if (rowNum === 100) {
-    console.log('create row AND first card');
-    rowNum++;
-  } else if (rowNum >= 0) {
+  if (rowNum >= 0) {
     const newDiv = document.createElement('div');
     newDiv.className = 'grid col-sm mb-4';
     const bookTemplate = '<div class="card h-100 bg-primary text-light align-items-center"'
@@ -51,9 +54,6 @@ function createBookCard(Book) {
     rowNum++;
     newDiv.innerHTML += bookTemplate;
     document.getElementById('bookGrid').appendChild(newDiv);
-  } else if (rowNum <= 2) {
-    console.log('rowNum reset after card added');
-    rowNum = 0;
   }
 
   return Book;
@@ -62,12 +62,14 @@ function createBookCard(Book) {
 // based on the information a user enters into the Modal/Form.
 // From here, that information is pushed to the myLibrary Array.
 // The function is triggered when a user hits the "submit" button.
+// This function will then call the createBookCard() function
+// passing it a book
 const createBook = () => {
   Book = {
     title: document.getElementById('Title').value,
     author: document.getElementById('Author').value,
     pages: document.getElementById('numPages').value,
-    read: document.getElementById('flexCheckDefault').checked,
+    // read: document.getElementById('flexCheckDefault').checked,
   };
   if (Book.title === '') {
     alert('Book title is empty.');
@@ -88,20 +90,19 @@ const createBook = () => {
   return Book;
 };
 
+// the below function removes a single book card by using the
+// data-remove-id number unique to a specific card
 function removeBook(id) {
-  // record id of the remove button that was used
   const selected = document.querySelector(`[data-remove-id="${id}"]`);
-  // let selected = document.querySelector(`[data-remove-id="${id}"]`);
   const selectedId = selected.dataset.removeId;
   const newDiv = document.querySelector(`[data-id="${selectedId}"]`);
   newDiv.remove();
-  // match the button id with the id of the card
-  // remove associated ID
-
-  // add remove confirmation
-  // add progress field
 }
 
+// the below function changes the color of a single book card by using the
+// data-color-id number unique to each card
+// it uses a variable to read whether or not the card has been changed in color
+// and allows the function to run over and over, resetting colorNum each time
 function readBook(id) {
   if (colorNum === 0) {
     const selected = document.querySelector(`[data-color-id="${id}"]`);
